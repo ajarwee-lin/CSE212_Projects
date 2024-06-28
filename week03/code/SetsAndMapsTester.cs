@@ -82,14 +82,18 @@ public static class SetsAndMapsTester {
 
     private static Dictionary<string, int> SummarizeDegrees(string filename) {
         var degrees = new Dictionary<string, int>();
-        foreach (var line in File.ReadLines(filename)) {
-            var fields = line.Split(",");
-            var degree = fields[3];
-            if (degrees.ContainsKey(degree)) {
-                degrees[degree]++;
-            } else {
-                degrees[degree] = 1;
+        try {
+            foreach (var line in File.ReadLines(filename)) {
+                var fields = line.Split(",");
+                var degree = fields[3];
+                if (degrees.ContainsKey(degree)) {
+                    degrees[degree]++;
+                } else {
+                    degrees[degree] = 1;
+                }
             }
+        } catch (Exception ex) {
+            Console.WriteLine($"Error reading file: {ex.Message}");
         }
         return degrees;
     }
@@ -157,17 +161,19 @@ public static class SetsAndMapsTester {
 
     private static void EarthquakeDailySummary() {
         const string uri = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson";
-        using var client = new HttpClient();
-        using var getRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
-        using var jsonStream = client.Send(getRequestMessage).Content.ReadAsStream();
-        using var reader = new StreamReader(jsonStream);
-        var json = reader.ReadToEnd();
-        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        try {
+            using var client = new HttpClient();
+            using var getRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
+            using var jsonStream = client.Send(getRequestMessage).Content.ReadAsStream();
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-        var featureCollection = JsonSerializer.Deserialize<FeatureCollection>(json, options);
+            var featureCollection = JsonSerializer.Deserialize<FeatureCollection>(jsonStream, options);
 
-        foreach (var feature in featureCollection.Features) {
-            Console.WriteLine($"{feature.Properties.Place} - Mag {feature.Properties.Mag}");
+            foreach (var feature in featureCollection.Features) {
+                Console.WriteLine($"{feature.Properties.Place} - Mag {feature.Properties.Mag}");
+            }
+        } catch (Exception ex) {
+            Console.WriteLine($"Error retrieving earthquake data: {ex.Message}");
         }
     }
 }
@@ -195,5 +201,38 @@ public class Maze {
     }
 
     public void MoveUp() {
+        if (_map[_position][0]) {
+            _position = (_position.Item1 - 1, _position.Item2);
+        } else {
+            Console.WriteLine("Move Up blocked.");
+        }
+    }
+
+    public void MoveRight() {
+        if (_map[_position][1]) {
+            _position = (_position.Item1, _position.Item2 + 1);
+        } else {
+            Console.WriteLine("Move Right blocked.");
+        }
+    }
+
+    public void MoveDown() {
         if (_map[_position][2]) {
-            _position = (_position
+            _position = (_position.Item1 + 1, _position.Item2);
+        } else {
+            Console.WriteLine("Move Down blocked.");
+        }
+    }
+
+    public void MoveLeft() {
+        if (_map[_position][3]) {
+            _position = (_position.Item1, _position.Item2 - 1);
+        } else {
+            Console.WriteLine("Move Left blocked.");
+        }
+    }
+
+    public void ShowStatus() {
+        Console.WriteLine($"Current position: {_position.Item1}, {_position.Item2}");
+    }
+}
