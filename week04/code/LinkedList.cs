@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LinkedList : IEnumerable<int>
 {
@@ -134,27 +136,13 @@ public class LinkedList : IEnumerable<int>
         return "<LinkedList>{" + string.Join(", ", this) + "}";
     }
 
-    public Boolean HeadAndTailAreNull()
+    public bool HeadAndTailAreNull()
     {
         return _head is null && _tail is null;
     }
 
-    public Boolean HeadAndTailAreNotNull()
+    public bool HeadAndTailAreNotNull()
     {
         return _head is not null && _tail is not null;
-    }
-}
-
-public class Node
-{
-    public int Data;
-    public Node? Next;
-    public Node? Prev;
-
-    public Node(int data)
-    {
-        Data = data;
-        Next = null;
-        Prev = null;
     }
 }

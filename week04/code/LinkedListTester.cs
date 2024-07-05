@@ -1,3 +1,5 @@
+using System;
+
 public static class LinkedListTester
 {
     public static void Run()
@@ -70,7 +72,6 @@ public static class LinkedListTester
         Console.WriteLine(ll.ToString()); // <LinkedList>{4, 35, 10, 10}
         ll.Replace(4, 100);
         Console.WriteLine(ll.ToString()); // <LinkedList>{100, 35, 10, 10}
-
 
         Console.WriteLine("\n=========== PROBLEM 5 TESTS ===========");
         Console.WriteLine(ll.Reverse().AsString()); // <IEnumerable>{10, 10, 35, 100}
