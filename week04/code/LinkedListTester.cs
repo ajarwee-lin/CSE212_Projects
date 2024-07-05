@@ -1,6 +1,8 @@
-public static class LinkedListTester {
-    public static void Run() {
-        // Sample Test Cases (may not be comprehensive) 
+public static class LinkedListTester
+{
+    public static void Run()
+    {
+        // Sample Test Cases (may not be comprehensive)
         Console.WriteLine("\n=========== PROBLEM 1 TESTS ===========");
         var ll = new LinkedList();
         ll.InsertTail(1);
@@ -71,6 +73,6 @@ public static class LinkedListTester {
 
 
         Console.WriteLine("\n=========== PROBLEM 5 TESTS ===========");
-        Console.WriteLine(ll.Reverse().AsString()); // <IEnumerable>[10, 10, 35, 100}
+        Console.WriteLine(ll.Reverse().AsString()); // <IEnumerable>{10, 10, 35, 100}
     }
 }
