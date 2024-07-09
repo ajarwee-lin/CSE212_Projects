@@ -207,3 +207,85 @@ namespace Week03.SetsAndMaps
                 {
                     Console.WriteLine($"{feature.Properties.Place} - Mag {feature.Properties.Mag}");
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching earthquake data: {ex.Message}");
+            }
+        }
+
+        // FeatureCollection and other necessary classes for JSON deserialization
+        private class FeatureCollection
+        {
+            public List<Feature> Features { get; set; }
+        }
+
+        private class Feature
+        {
+            public FeatureProperties Properties { get; set; }
+        }
+
+        private class FeatureProperties
+        {
+            public string Place { get; set; }
+            public double Mag { get; set; }
+        }
+    }
+
+    public class Maze
+    {
+        private readonly Dictionary<(int, int), bool[]> _map;
+        private (int, int) _location;
+
+        public Maze(Dictionary<(int, int), bool[]> map)
+        {
+            _map = map;
+            _location = (1, 1);
+        }
+
+        public void MoveUp()
+        {
+            var (x, y) = _location;
+            if (_map[(_location)].Contains(true))
+            {
+                _location = (x - 1, y);
+                Console.WriteLine($"Moved to {_location}");
+            }
+        }
+
+        public void MoveDown()
+        {
+            var (x, y) = _location;
+            if (_map[(_location)].Contains(true))
+            {
+                _location = (x + 1, y);
+                Console.WriteLine($"Moved to {_location}");
+            }
+        }
+
+        public void MoveLeft()
+        {
+            var (x, y) = _location;
+            if (_map[(_location)].Contains(true))
+            {
+                _location = (x, y - 1);
+                Console.WriteLine($"Moved to {_location}");
+            }
+        }
+
+        public void MoveRight()
+        {
+            var (x, y) = _location;
+            if (_map[(_location)].Contains(true))
+            {
+                _location = (x, y + 1);
+                Console.WriteLine($"Moved to {_location}");
+            }
+        }
+
+        public void ShowStatus()
+        {
+            Console.WriteLine($"Current location: {_location}");
+        }
+    }
+}
