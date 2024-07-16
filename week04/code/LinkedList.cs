@@ -2,20 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Node
-{
-    public int Data;
-    public Node? Next;
-    public Node? Prev;
-
-    public Node(int data)
-    {
-        Data = data;
-        Next = null;
-        Prev = null;
-    }
-}
-
 public class LinkedList : IEnumerable<int>
 {
     private Node? _head;
@@ -158,45 +144,5 @@ public class LinkedList : IEnumerable<int>
     public bool HeadAndTailAreNotNull()
     {
         return _head is not null && _tail is not null;
-    }
-}
-
-// Test code
-public class Program
-{
-    public static void Main(string[] args)
-    {
-        LinkedList list = new LinkedList();
-
-        // Test InsertTail
-        list.InsertTail(1);
-        list.InsertTail(2);
-        list.InsertTail(3);
-        Console.WriteLine("After InsertTail:");
-        Console.WriteLine(list);
-
-        // Test RemoveTail
-        list.RemoveTail();
-        Console.WriteLine("After RemoveTail:");
-        Console.WriteLine(list);
-
-        // Test Remove
-        list.Remove(2);
-        Console.WriteLine("After Remove:");
-        Console.WriteLine(list);
-
-        // Test Replace
-        list.InsertTail(4);
-        list.InsertTail(4);
-        list.Replace(4, 5);
-        Console.WriteLine("After Replace:");
-        Console.WriteLine(list);
-
-        // Test Reverse
-        Console.WriteLine("Reverse:");
-        foreach (var item in list.Reverse())
-        {
-            Console.WriteLine(item);
-        }
     }
 }
